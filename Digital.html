@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Clock</title>
+</head>
+<style>
+    *{
+        margin: 0px;
+        padding: 0px;
+    }
+    @font-face {
+        font-family:digital-7;
+        src: url('digital-7.zip');
+    }
+    body{
+        width: 100vw;
+        height: 100vh;
+        background-color: rgb(113, 97, 117);
+        display: flex;
+        flex-direction: column;
+        cursor: pointer;
+        user-select: none;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+    }
+    h2{
+        font-size: 50px;
+        font-weight: 500px;
+    }
+    .frame{
+        height: 100px;
+        width: 400px;
+        background-color: rgb(94, 104, 104);
+        border: 20px solid rgb(109, 33, 80);
+        padding: 20px;
+        border-radius: 20px;
+        box-shadow: rgb(105, 102, 102);
+        font-size: 50px;
+        text-align: center;
+        line-height: 90px;
+    }
+</style>
+<body>
+    <h2>Digital Clock</h2>
+    <div class="frame">
+        <div class="clock">12 : 03 : 24 AM</div>
+    </div>
+    <div class="frame">
+        <div class="clock">
+            <span class="h">0</span>
+            <span class="h">0</span>
+            <span>:</span>
+            <span class="m">0</span>
+            <span class="m">0</span>
+            <span>:</span>
+            <span class="s">0</span>
+            <span class="s">0</span>
+            <span class="t">AM</span>
+        </div>
+    </div>
+</body>
+<script>
+    const clock=document.querySelector('.clock');
+    function runClock(){
+        const time=new Date();
+        const hr=time.getHours();
+        const min=time.getMinutes();
+        const sec=time.getSeconds();
+        const txt='AM';
+        if(hr>12){
+            hr=hr-12;
+            txt.innerHTML='PM';
+        }
+        else if(hr==0){
+             hr=12;
+             txt.innerHTML='AM';
+        }
+        clock.innerHTML=`${hr<10?'0'+hr:hr} : ${min<10?'0'+min:min} :${sec<10?'0'+sec:sec} ${txt}`;
+    }
+    setInterval(runClock,1000);
+
+    // ----------------------------------------
+    const h=document.querySelector('.h');
+    const m=document.querySelector('.m');
+    const s=document.querySelector('.s');
+    const t=document.querySelector('.t');
+
+
+    hr=hr.toString();
+    h[0].innerHTML=hr[0];
+    h[1].innerHTML=hr[1];
+    min=min.toString();
+    m[0].innerHTML=min[0];
+    m[1].innerHTML=min[1];
+    sec=sec.toString();
+    s[0].innerHTML=sec[0];
+    s[1].innerHTML=sec[1];
+</script>
+</html>
