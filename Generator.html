@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Generator</title>
+</head>
+<style>
+    *{
+        margin: 0px;
+        padding: 0px;
+    }
+    body{
+        background-color: rgb(65, 61, 61);
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .container{
+        background-color: rgb(229, 240, 240);
+        width: 500px;
+        height: 500px;
+        position: relative;
+    }
+    .tool{
+        background-color: aquamarine;
+        width: 300px;
+        height: 300px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .group{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        padding: 0px 40px;
+        margin-top: 10px;
+    }
+    .group span{
+        color: rgb(1, 60, 253);
+        margin-left: 10px;
+        padding: 0px 20px;
+    }
+    textarea{
+        height: 100px;
+        margin-right: 10px;
+        margin-left: 10px;
+        text-align: left;
+    }
+    button{
+        height:30px;
+        width: 70px;
+        margin-left: 110px;
+        border-radius: 5px;
+        border: 2px solid blueviolet;
+        cursor: pointer;
+        background-color: blueviolet;
+        color: white;
+    }
+</style>
+<body>
+    <div class="container">
+        <div class="tool">
+            <div class="group">
+                <label for="all">All Corner <span id="border_val"></span></label>
+                <input type="range" value="10" min="0" max="400" id="all">
+            </div>
+            <div class="group">
+                <label for="border">Border Corner<span id="border_size"></span></label>
+                <input type="range" value="1" min="0" max="20" id="border">
+            </div>
+            <div class="group">
+                <label for="border_style">Border Style</label>
+                <select  id="border_style">
+                    <option>solid</option>
+                    <option>double</option>
+                    <option>dotted</option>
+                    <option>dashed</option>
+                    <option>groove</option>
+                    <option>ridge</option>
+                    <option>inset</option>
+                    <option>outset</option>
+                    <option>none</option>
+                    <option>hidden</option>
+                </select>
+            </div>
+            <div class="group">
+                <textarea id="code"></textarea>
+            </div>
+            <div class="group">
+                <button id="btn">Copy</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded",()=>{
+
+        const container=document.querySelector('.container');
+        const btn=document.querySelector('#btn');
+        const all=document.getElementById('all');
+        const border_styleElement=document.getElementById('border_style');
+        const code_box=document.getElementById('code');
+        const border_box=document.getElementById('border');
+        const border_val=document.getElementById('border_val');
+        const border_val1=document.getElementById('border_size');
+        var radi_val=10;
+
+        var code_val='';
+        var border_style="solid";
+        var border_size=2;
+        function allborder(){
+        radi_val=all.value;
+        border_val.innerHTML=radi_val+'px';
+
+        border_size=border_box.value;
+        border_val1.innerHTML=border_size+'px';
+        code_val=`
+        border-radius:${radi_val}px;
+        border:${border_size}px ${border_style} red;
+        `;
+        code_box.value=code_val;
+        container.style.cssText=code_val;
+    }
+
+    //  function updatecode(){
+    //     Eleval=border_box.value;
+    //     border_val1.innerHTML=Eleval+'px';
+    //     container.style.cssText=code_val;
+
+    //  }
+
+    all.addEventListener('mousemove',allborder);
+    all.addEventListener('change',allborder);
+
+    border.addEventListener('mousemove',allborder);
+    border.addEventListener('change',allborder);
+
+
+    btn.addEventListener('click',()=>{
+        // document.querySelector('textarea').select();
+        code_box.select();
+        document.execCommand('copy');
+        alert('Code Copied');
+    });
+    border_styleElement.addEventListener('change',function(){
+            // border_style=this.value;
+         border_style=this.value;
+    });
+    allborder();
+        });
+       
+    </script>
+</body> 
+</html>
