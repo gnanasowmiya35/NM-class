@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stop Watch</title>
+</head>
+<style>
+    body{
+        background-color: black;
+        height: 100vh;
+        width: 100vw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+    }
+    .container{
+        background-color: rgb(203, 193, 216);
+        width: 400px;
+        height: 400px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        user-select: none;
+        cursor: pointer;
+    }
+    .frame{
+        display: flex;
+        gap:3px;
+    }
+    .hrs,.mins,.secs,.mills, .colon{
+        width: 40px;
+        height: 30px;
+        font-size: 30px;
+        align-items: center;
+        line-height: 40px;
+    }
+    .colon{
+        width: 20px;
+        height: 20px;
+       
+    }
+    .button button{
+        border: none;
+        padding: 8px 30px;
+        margin-top: 10px;
+        border-radius: 5px;
+        text-transform: uppercase;
+    }
+    .start{
+     background-color: rgb(37, 216, 216);
+    }
+    .stop{
+        background-color: rgb(128, 39, 211);
+    }
+    .reset{
+        background-color: rgb(226, 36, 36);
+    }
+    .start-active,.stop-active{
+        pointer-events: none;
+        opacity: 0.5;
+    }
+</style>
+<body>
+    <div class="container">
+        <div class="frame">
+            <div class="hrs">00</div>
+            <div class="colon">:</div>
+            <div class="mins">00</div>
+            <div class="colon">:</div>
+            <div class="secs">00</div>
+            <div class="colon">:</div>
+            <div class="mills">00</div>
+        </div>
+        <div class="button">
+            <button class="start">Start</button>
+            <button class="stop">Stop</button>
+            <button class="reset">Reset</button>
+        </div>
+    </div>
+    <script>
+        const start=document.querySelector('.start');
+        const stopbtn=document.querySelector('.stop');
+        const reset=document.querySelector('.reset');
+
+        let hrs=mins=secs=mills=0,setval;
+
+        start.addEventListener('click',()=>{
+            start.classList.add('start-active');
+            stopbtn.classList.remove('start-active');
+            setval=setInterval(()=>{
+               mills++;
+               if(mills==100){
+                secs++;
+                mills=0;
+               } 
+                if(secs==60){
+                    mins++;
+                    secs=0;
+                }
+                if(mins==60){
+                    hrs++;
+                    mins=0;
+                }
+              
+               update();
+            },10);
+            
+        });
+
+
+        stopbtn.addEventListener('click',()=>{
+           clearInterval(setval);
+           start.classList.remove('start-active');
+            stopbtn.classList.add('start-active');
+        });
+
+
+        reset.addEventListener('click',()=>{
+            hrs=mins=secs=mills=0;
+            start.classList.remove('start-active');
+            stopbtn.classList.remove('start-active');
+            clearInterval(setval);
+            update();
+        });
+
+        function update(){
+            phrs=hrs<10?'0'+hrs:hrs;
+            pmins=mins<10?'0'+mins:mins;
+            psecs=secs<10?'0'+secs:secs;
+            pmills=mills<10?'0'+mills:mills;
+            const min=document.querySelector('.mins').innerHTML=pmins;
+            const sec=document.querySelector('.secs').innerHTML=psecs;
+            const hr=document.querySelector('.hrs').innerHTML=phrs;
+            const mill=document.querySelector('.mills').innerHTML=pmills;  
+        }
+    </script>
+</body>
+</html>
