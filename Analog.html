@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analog Clock</title>
+</head>
+<style>
+    body{
+        background-color: black;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+    }
+    :root{
+        --them-color:rgb(35, 238, 120);
+    }
+    .container{
+        background-color: rgb(207, 219, 219);
+        width: 500px;
+        height: 500px;
+        border-radius: 50%;
+        border: 10px ridge var(--them-color);
+        position: relative;
+    }
+    .container::before{
+        content: 'Analog Clock';
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        font-style: italic;
+        font-size: 20px;
+    }
+    .container::after{
+        content: '';
+        position: absolute;
+        width: 15px;
+        height: 15px;
+        background-color:var(--them-color);
+        border-radius: 50%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        z-index: 10;
+    }
+    .numbers{
+        --rotate:0deg;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        font-size: 20px;
+        transform:rotate(var(--rotate)) ;
+    }
+    /* .number-1{
+        transform: rotate(30deg);
+    }
+    .number-2{
+        transform: rotate(60deg);
+    }
+    .number-3{
+        transform: rotate(90deg);
+    }
+    .number-4{
+        transform: rotate(120deg);
+    }
+    .number-5{
+        transform: rotate(150deg);
+    }
+    .number-6{
+        transform: rotate(180deg);
+    }
+    .number-7{
+        transform: rotate(210deg);
+    }
+    .number-8{
+        transform: rotate(240deg);
+    }
+    .number-9{
+        transform: rotate(270deg);
+    }
+    .number-10{
+        transform: rotate(300deg);
+    }
+    .number-11{
+        transform: rotate(330deg);
+    } */
+     .number-1{ --rotate:30deg;}
+     .number-2{ --rotate:60deg;}
+     .number-3{ --rotate:90deg;}
+     .number-4{ --rotate:120deg;}
+     .number-5{ --rotate:150deg;}
+     .number-6{ --rotate:180deg;}
+     .number-7{ --rotate:210deg;}
+     .number-8{ --rotate:240deg;}
+     .number-9{ --rotate:270deg;}
+     .number-10{ --rotate:300deg;}
+     .number-11{ --rotate:330deg;}
+
+
+     .Needle{
+        --rotation:0;
+        position: absolute;
+        bottom: 50%;
+        left: 50%;
+        width: 10px;
+        height: 40%;
+        background-color: var(--them-color);
+        transform-origin: bottom;
+        transform: translateX(-50%) rotate(calc(var(--rotation)*1deg));
+        z-index: 8;
+        border-top-left-radius: 50%;
+        border-top-right-radius: 50%;
+     }
+     .hrs{
+        background-color: black;
+        width: 10px;
+        height: 25%;
+     }
+     .secs{
+        background-color: var(--them-color);
+        width: 3px;
+        height: 45%;
+     }
+     .mins{
+        background-color:black;
+        width: 7px;
+        height: 40%;
+     }
+</style>
+<body>
+     <div class="container">
+       <div class="Needle hrs"></div>
+       <div class="Needle mins"></div>
+       <div class="Needle secs"></div>
+       <div class="numbers number-1">1</div>
+       <div class="numbers number-2">2</div>
+       <div class="numbers number-3">3</div>
+       <div class="numbers number-4">4</div>
+       <div class="numbers number-5">5</div>
+       <div class="numbers number-6">6</div>
+       <div class="numbers number-7">7</div>
+       <div class="numbers number-8">8</div>
+       <div class="numbers number-9">9</div>
+       <div class="numbers number-10">10</div>
+       <div class="numbers number-11">11</div>
+       <div class="numbers number-12">12</div>
+    </div>
+     
+    
+    <script>
+     const hr=document.querySelector('.hrs');
+     const min=document.querySelector('.mins');
+     const sec=document.querySelector('.secs');
+     setInterval(runClock,1000);
+        function runClock(){
+             const time=new Date();
+             const timesec=time.getSeconds()/60;
+             const timemin=(timesec+time.getMinutes())/60;
+             const timehr=(timemin+time.getHours())/12;
+             hr.style.setProperty('--rotation',timehr*360);
+             min.style.setProperty('--rotation',timemin*360);
+             sec.style.setProperty('--rotation',timesec*360);
+         }
+         runClock();
+         
+        
+    </script>
+</body>
+ 
+</html>
